@@ -1,0 +1,17 @@
+:root {
+  font-family: system-ui;
+  color: white;
+  background-color: #242424;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+}
+
+#app {
+  margin: 0 auto;
+  text-align: center;
+}
