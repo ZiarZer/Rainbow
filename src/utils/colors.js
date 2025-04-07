@@ -30,3 +30,25 @@ export const computeShade = (baseHexColor, brightnessFactor) => {
   };
   return rgbToHex(shadeRgb);
 };
+
+export const computeGradientStepColor = (
+  startColorHex,
+  endColorHex,
+  gradientStep
+) => {
+  const startColorRgb = hexToRgb(startColorHex);
+  const endColorRgb = hexToRgb(endColorHex);
+
+  const deltaRgb = {
+    r: endColorRgb.r - startColorRgb.r,
+    g: endColorRgb.g - startColorRgb.g,
+    b: endColorRgb.b - startColorRgb.b,
+  };
+  const gradientStepRgb = {
+    r: Math.round(startColorRgb.r + deltaRgb.r * gradientStep),
+    g: Math.round(startColorRgb.g + deltaRgb.g * gradientStep),
+    b: Math.round(startColorRgb.b + deltaRgb.b * gradientStep),
+  };
+
+  return rgbToHex(gradientStepRgb);
+};

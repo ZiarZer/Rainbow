@@ -28,14 +28,4 @@ input {
 h3 {
   margin: 0;
 }
-
-.tool {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  background-color: #ffffff11;
-  padding: 1em;
-  border-radius: 1em;
-  border: solid 1px white;
-}
 </style>
