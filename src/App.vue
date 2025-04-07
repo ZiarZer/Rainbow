@@ -1,12 +1,9 @@
 <script setup>
-import { ref } from 'vue'
-import ColorSelector from './components/ColorSelector.vue'
-
-const hexColor = ref('#ffffff')
+import ShadeComputerTool from './components/ShadeComputerTool.vue'
 </script>
 
 <template>
-  <ColorSelector :disabled="false" v-model="hexColor" />
+  <ShadeComputerTool />
 </template>
 
 <style scoped></style>

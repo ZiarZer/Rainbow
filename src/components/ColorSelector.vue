@@ -27,6 +27,10 @@ input {
   width: 4.5em;
 }
 
+input:disabled {
+  cursor: no-drop;
+}
+
 #hex-input-text {
   border: solid white 0.25px;
   color: white;
