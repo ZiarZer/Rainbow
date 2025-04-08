@@ -2,11 +2,12 @@
 import IntervalConverterTool from './components/IntervalConverterTool.vue';
 import ShadeComputerTool from './components/ShadeComputerTool.vue'
 import ColorTile from './components/ColorTile.vue'
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const addTile = () => colors.value.push('#ffffff')
 
 const colors = ref([])
+const displayPlaceholderTile = computed(() => colors.value.length === 0)
 </script>
 
 <template>
@@ -15,9 +16,12 @@ const colors = ref([])
     <IntervalConverterTool />
   </div>
   <hr />
-  <button @click="addTile">Add tile</button>
+  <button @click="addTile" v-if="!displayPlaceholderTile">Add tile</button>
   <div id="tiles-container">
-    <ColorTile v-for="() in colors" />
+    <div id="placeholder-tile" v-if="displayPlaceholderTile">
+      <button @click="addTile">Add tile to continue</button>
+    </div>
+    <ColorTile v-else v-for="() in colors" />
   </div>
 </template>
 
@@ -49,6 +53,7 @@ const colors = ref([])
   display: flex;
   flex-direction: column-reverse;
   gap: 0.5em;
+  margin-top: 1em;
 }
 
 hr {
@@ -56,6 +61,15 @@ hr {
 }
 
 button {
-  margin: 1em;
+  height: min-content;
+}
+
+#placeholder-tile {
+  border: dashed 1px white;
+  border-radius: 1em;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
