@@ -11,7 +11,7 @@ const middleColorHex = computed(() => computeGradientStepColor(startColorHex.val
 </script>
 <template>
   <div class="interval">
-    {{ title }}:
+    <p>{{ title }}:</p>
     <ColorSelector :disabled="false" v-model="startColorHex" />
     <ColorSelector :disabled="true" v-model="middleColorHex" />
     <ColorSelector :disabled="false" v-model="endColorHex" />

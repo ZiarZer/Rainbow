@@ -19,6 +19,12 @@ import ShadeComputerTool from './components/ShadeComputerTool.vue'
   padding: 1em;
   border-radius: 1em;
   border: solid 1px white;
+  opacity: 0.8;
+  transition: opacity 250ms ease-in-out;
+}
+
+.tool:hover {
+  opacity: 1;
 }
 
 #tools {

@@ -3,16 +3,18 @@ import { computed, ref } from 'vue'
 import ColorSelector from './ColorSelector.vue'
 import { computeShade } from '../utils/colors'
 
-const colorHex = ref('#ffffff')
-const brightnessFactor = ref(0.5)
+const colorHex = ref('#ff0000')
+const brightnessFactor = ref(0.3)
 const shadedColorHex = computed(() => computeShade(colorHex.value, brightnessFactor.value))
+
+const backgroundGradient = computed(() => `linear-gradient(${colorHex.value} 0%, ${shadedColorHex.value} 100%)`)
 </script>
 
 <template>
-  <div class="tool">
+  <div class="tool" id="shade-computer-wrapper">
     <h3>Shade computer</h3>
     <ColorSelector :disabled="false" v-model="colorHex" />
-    <div>
+    <div id="brightness-selector">
       <label>Brightness factor: </label>
       <input type="text" v-model="brightnessFactor" />
     </div>
@@ -25,7 +27,13 @@ input {
   width: 3em;
 }
 
-h3 {
-  margin: 0;
+#shade-computer-wrapper {
+  background: v-bind('backgroundGradient')
+}
+
+#brightness-selector {
+  background-color: black;
+  padding-left: 0.25em;
+  padding: 0.25em;
 }
 </style>
