@@ -4,12 +4,18 @@ import ShadeComputerTool from './components/ShadeComputerTool.vue'
 import ColorTile from './components/ColorTile.vue'
 import { computed, ref } from 'vue';
 
-function addTile() {
-  colors.value.push(
-    colors.value.length > 0
-      ? colors.value[colors.value.length - 1]
-      : '#ffffff'
-  )
+function addColumn() {
+  colors.value.forEach(element => {
+    element.push(
+      element.length > 0
+        ? element[element.length - 1]
+        : '#ffffff'
+    )
+  });
+}
+
+function addRow() {
+  colors.value.push(colors.value.length > 0 ? [...colors.value[colors.value.length - 1]] : [])
 }
 
 const colors = ref([])
@@ -22,16 +28,26 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
     <IntervalConverterTool />
   </div>
   <hr />
-  <button @click="addTile" v-if="!displayPlaceholderTile">Add tile</button>
+  <div id="buttons-container">
+    <button @click="addRow" v-if="!displayPlaceholderTile">Add row</button>
+    <button @click="addColumn" v-if="!displayPlaceholderTile">Add column</button>
+  </div>
   <div id="tiles-container">
     <div id="placeholder-tile" v-if="displayPlaceholderTile">
-      <button @click="addTile">Add tile to continue</button>
+      <button @click="() => { addRow(); addColumn() }">Add tile to continue</button>
     </div>
-    <ColorTile v-else v-for="(_, index) in colors" :key="index" v-model="colors[index]" />
+    <div v-else v-for="(row, i) in colors" class="row">
+      <ColorTile v-for="(_, j) in row" :key="i + j" v-model="row[j]" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.row {
+  display: flex;
+  gap: 0.5em;
+}
+
 .tool {
   display: flex;
   flex-direction: column;
@@ -46,6 +62,12 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
 
 .tool:hover {
   opacity: 1;
+}
+
+#buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 #tools {

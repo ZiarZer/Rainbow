@@ -13,5 +13,6 @@ const colorHex = defineModel()
 .color-tile {
   border-radius: 1em;
   padding: 0.25em;
+  width: 100%;
 }
 </style>
