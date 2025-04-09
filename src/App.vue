@@ -4,7 +4,13 @@ import ShadeComputerTool from './components/ShadeComputerTool.vue'
 import ColorTile from './components/ColorTile.vue'
 import { computed, ref } from 'vue';
 
-const addTile = () => colors.value.push('#ffffff')
+function addTile() {
+  colors.value.push(
+    colors.value.length > 0
+      ? colors.value[colors.value.length - 1]
+      : '#ffffff'
+  )
+}
 
 const colors = ref([])
 const displayPlaceholderTile = computed(() => colors.value.length === 0)
@@ -21,7 +27,7 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
     <div id="placeholder-tile" v-if="displayPlaceholderTile">
       <button @click="addTile">Add tile to continue</button>
     </div>
-    <ColorTile v-else v-for="() in colors" />
+    <ColorTile v-else v-for="(_, index) in colors" :key="index" v-model="colors[index]" />
   </div>
 </template>
 

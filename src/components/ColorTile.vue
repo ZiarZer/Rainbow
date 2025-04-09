@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import ColorSelector from './ColorSelector.vue';
 
-const colorHex = ref('#ffffff');
+const colorHex = defineModel()
 </script>
 <template>
   <div :style="{ backgroundColor: colorHex }" class="color-tile">
