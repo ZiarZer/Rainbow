@@ -18,6 +18,22 @@ function addRow() {
   colors.value.push(colors.value.length > 0 ? [...colors.value[colors.value.length - 1]] : [])
 }
 
+function saveAsCookie() {
+  document.cookie = `colorGrid=${encodeURIComponent(
+    JSON.stringify(colors.value)
+  )}`
+}
+
+function loadFromCookie() {
+  const storedColors = document.cookie
+    .split(';')
+    .map((cookie) => cookie.split('='))
+    .find(([cookieName]) => cookieName === 'colorGrid')
+  if (storedColors != null) {
+    colors.value = JSON.parse(decodeURIComponent(storedColors[1]))
+  }
+}
+
 const colors = ref([])
 const displayPlaceholderTile = computed(() => colors.value.length === 0)
 </script>
@@ -31,6 +47,8 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
   <div id="buttons-container">
     <button @click="addRow" v-if="!displayPlaceholderTile">Add row</button>
     <button @click="addColumn" v-if="!displayPlaceholderTile">Add column</button>
+    <button @click="saveAsCookie" v-if="!displayPlaceholderTile">Save as cookie</button>
+    <button @click="loadFromCookie" v-if="!displayPlaceholderTile">Load from cookie</button>
   </div>
   <div id="tiles-container">
     <div id="placeholder-tile" v-if="displayPlaceholderTile">
