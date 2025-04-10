@@ -37,6 +37,14 @@ function loadColorsFromCookies() {
   return JSON.parse(decodeURIComponent(storedColors[1]))
 }
 
+let timeoutId = null;
+function handleColorTileChange() {
+  if (timeoutId != null) {
+    clearTimeout(timeoutId)
+  }
+  timeoutId = setTimeout(storeColorsInCookie, 500)
+}
+
 const colors = ref(loadColorsFromCookies())
 const displayPlaceholderTile = computed(() => colors.value.length === 0)
 </script>
@@ -56,7 +64,7 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
       <button @click="() => { addRow(); addColumn() }">Add tile to continue</button>
     </div>
     <div v-else v-for="(row, i) in colors" class="row">
-      <ColorTile v-for="(_, j) in row" :key="i + j" v-model="row[j]" @color-update="storeColorsInCookie" />
+      <ColorTile v-for="(_, j) in row" :key="i + j" v-model="row[j]" @color-update="handleColorTileChange" />
     </div>
   </div>
 </template>
