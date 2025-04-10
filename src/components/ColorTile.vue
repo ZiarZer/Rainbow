@@ -6,7 +6,7 @@ const colorHex = defineModel()
 </script>
 <template>
   <div :style="{ backgroundColor: colorHex }" class="color-tile">
-    <ColorSelector :disabled="false" v-model="colorHex" />
+    <ColorSelector :disabled="false" v-model="colorHex" @color-update="$emit('color-update')" />
   </div>
 </template>
 <style scoped>

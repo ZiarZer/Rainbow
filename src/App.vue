@@ -11,14 +11,16 @@ function addColumn() {
         ? element[element.length - 1]
         : '#ffffff'
     )
-  });
+  })
+  storeColorsInCookie()
 }
 
 function addRow() {
   colors.value.push(colors.value.length > 0 ? [...colors.value[colors.value.length - 1]] : [])
+  storeColorsInCookie()
 }
 
-function saveAsCookie() {
+function storeColorsInCookie() {
   document.cookie = `colorGrid=${encodeURIComponent(
     JSON.stringify(colors.value)
   )}`
@@ -48,14 +50,13 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
   <div id="buttons-container">
     <button @click="addRow" v-if="!displayPlaceholderTile">Add row</button>
     <button @click="addColumn" v-if="!displayPlaceholderTile">Add column</button>
-    <button @click="saveAsCookie" v-if="!displayPlaceholderTile">Save as cookie</button>
   </div>
   <div id="tiles-container">
     <div id="placeholder-tile" v-if="displayPlaceholderTile">
       <button @click="() => { addRow(); addColumn() }">Add tile to continue</button>
     </div>
     <div v-else v-for="(row, i) in colors" class="row">
-      <ColorTile v-for="(_, j) in row" :key="i + j" v-model="row[j]" />
+      <ColorTile v-for="(_, j) in row" :key="i + j" v-model="row[j]" @color-update="storeColorsInCookie" />
     </div>
   </div>
 </template>

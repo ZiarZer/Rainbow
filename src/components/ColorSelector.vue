@@ -8,8 +8,8 @@ const hexColor = defineModel()
 
 <template>
   <div class="selector-wrapper">
-    <input type="color" v-model="hexColor" :disabled="disabled" />
-    <input type="text" id="hex-input-text" v-model="hexColor" :disabled="disabled" />
+    <input type="color" v-model="hexColor" :disabled="disabled" @input="$emit('color-update')" />
+    <input type="text" id="hex-input-text" v-model="hexColor" :disabled="disabled" @input="$emit('color-update')" />
   </div>
 </template>
 
