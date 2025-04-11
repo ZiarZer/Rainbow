@@ -1,9 +1,11 @@
 <script setup>
+import ColorFormatSelectorTool from './components/ColorFormatSelectorTool.vue';
 import IntervalConverterTool from './components/IntervalConverterTool.vue';
 import ShadeComputerTool from './components/ShadeComputerTool.vue'
 import ColorTile from './components/ColorTile.vue'
 import AppTitle from './components/AppTitle.vue'
-import { computed, ref } from 'vue';
+import { computed, provide, ref } from 'vue';
+import { store } from './state/store';
 
 function addColumn() {
   colors.value.forEach(element => {
@@ -48,12 +50,15 @@ function handleColorTileChange() {
 
 const colors = ref(loadColorsFromCookies())
 const displayPlaceholderTile = computed(() => colors.value.length === 0)
+
+provide('store', store)
 </script>
 
 <template>
   <div id="top">
     <AppTitle />
     <div id="tools">
+      <ColorFormatSelectorTool />
       <ShadeComputerTool />
       <IntervalConverterTool />
     </div>
