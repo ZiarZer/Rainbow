@@ -3,6 +3,7 @@ import IntervalConverterTool from './components/IntervalConverterTool.vue';
 import ShadeComputerTool from './components/ShadeComputerTool.vue'
 import ColorTile from './components/ColorTile.vue'
 import AppTitle from './components/AppTitle.vue'
+import { computed, ref } from 'vue';
 
 function addColumn() {
   colors.value.forEach(element => {
@@ -52,9 +53,9 @@ const displayPlaceholderTile = computed(() => colors.value.length === 0)
 <template>
   <div id="top">
     <AppTitle />
-  <div id="tools">
-    <ShadeComputerTool />
-    <IntervalConverterTool />
+    <div id="tools">
+      <ShadeComputerTool />
+      <IntervalConverterTool />
     </div>
   </div>
   <hr />
