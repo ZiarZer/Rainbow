@@ -1,15 +1,37 @@
 <script setup>
+import { inject, ref, watch } from 'vue'
+import { store } from '../state/store'
+import { convertHexToFormat, convertToHex } from '../utils/colors'
+
+const emit = defineEmits(['color-update'])
+
 defineProps({
   disabled: Boolean,
 })
 
-const hexColor = defineModel()
+const inputColorValueHex = defineModel()
+const inputTextValue = ref(convertHexToFormat(inputColorValueHex.value, store.colorFormat))
+
+const onColorInputChange = ($event) => {
+  emit('color-update')
+  inputTextValue.value = convertHexToFormat($event.target.value, store.colorFormat)
+}
+const onTextInputChange = ($event) => {
+  emit('color-update')
+  inputColorValueHex.value = convertToHex($event.target.value, store.colorFormat)
+}
+
+watch(() => store.colorFormat, (newFormat) => {
+  inputTextValue.value = convertHexToFormat(inputColorValueHex.value, newFormat)
+})
+
+inject('store', store)
 </script>
 
 <template>
   <div class="selector-wrapper">
-    <input type="color" v-model="hexColor" :disabled="disabled" @input="$emit('color-update')" />
-    <input type="text" id="hex-input-text" v-model="hexColor" :disabled="disabled" @input="$emit('color-update')" />
+    <input type="color" v-model="inputColorValueHex" :disabled="disabled" @input="onColorInputChange" />
+    <input type="text" id="hex-input-text" v-model="inputTextValue" :disabled="disabled" @input="onTextInputChange" />
   </div>
 </template>
 

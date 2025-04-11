@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue';
 import ColorSelector from './ColorSelector.vue';
+
+defineEmits(['color-update'])
 
 const colorHex = defineModel()
 const copyColor = () => navigator.clipboard.writeText(colorHex.value)

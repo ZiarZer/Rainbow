@@ -52,3 +52,34 @@ export const computeGradientStepColor = (
 
   return rgbToHex(gradientStepRgb);
 };
+
+export const convertHexToFormat = (colorHex, colorFormat) => {
+  switch (colorFormat) {
+    case 'hex':
+      return colorHex;
+    case 'rgb':
+      const colorRgb = hexToRgb(colorHex);
+      return `rgb(${colorRgb.r},${colorRgb.g},${colorRgb.b})`;
+  }
+  return colorHex;
+};
+
+/**
+ * @param {string} color - String representing a color in the format srcColorFormat
+ * @param {'hex'|'rgb'} srcColorFormat
+ * @returns
+ */
+export const convertToHex = (color, srcColorFormat) => {
+  switch (srcColorFormat) {
+    case 'hex':
+      return color;
+    case 'rgb':
+      const match = color.match(/^rgb *\((\d+) *, *(\d+) *, *(\d+) *\)$/i);
+      if (!match) {
+        return color;
+      }
+      const [_, r, g, b] = match;
+      return rgbToHex({ r, g, b });
+  }
+  return color;
+};
