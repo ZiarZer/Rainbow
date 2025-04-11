@@ -1,17 +1,22 @@
 <script setup>
+import { computed, ref } from 'vue'
 import ColorInterval from './ColorInterval.vue'
 
 const gradientStep = defineModel({ default: 500 })
 function resetGradientStep() {
   gradientStep.value = 500
 }
+
+const srcHex = ref('#ffffff')
+const destHex = ref('#ffffff')
+const backgroundGradient = computed(() => `linear-gradient(${srcHex.value} 0%, ${destHex.value} 100%)`)
 </script>
 
 <template>
-  <div class="tool">
+  <div class="tool" id="interval-converter" :style="{ background: backgroundGradient }">
     <h3>Interval converter</h3>
-    <ColorInterval title="SRC" :gradientStep="gradientStep" />
-    <ColorInterval title="DEST" :gradientStep="gradientStep" />
+    <ColorInterval title="SRC" :gradientStep="gradientStep" @update="srcHex = $event" />
+    <ColorInterval title="DEST" :gradientStep="gradientStep" @update="destHex = $event" />
 
     <div id="gradient-step-selector">
       <div id="split">
@@ -24,6 +29,10 @@ function resetGradientStep() {
 </template>
 
 <style scoped>
+#interval-converter-wrapper {
+  background: v-bind('backgroundGradient')
+}
+
 h3 {
   margin: 0;
 }
@@ -31,6 +40,10 @@ h3 {
 #split {
   display: flex;
   flex-direction: column;
+}
+
+#split {
+  background-color: black;
 }
 
 #gradient-step-selector {
