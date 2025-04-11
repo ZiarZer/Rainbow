@@ -14,7 +14,12 @@ function shiftColors() {
         {{ letter }}
       </span>
     </h1>
-    <p id="version">v{{ version }}</p>
+    <div id="subtitle">
+      <p id="version">v{{ version }}</p>
+      <a href="https://github.com/ZiarZer/Rainbow" rel="noreferrer" target="_blank">
+        <img src="../assets/github-mark.png" :style="{ height: '2em' }" />
+      </a>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -34,5 +39,18 @@ h1 {
 
 #version {
   width: min-content;
+}
+
+a {
+  background-color: white;
+  border-radius: 0.5em;
+  display: flex;
+  padding: 3px;
+}
+
+#subtitle {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 </style>
