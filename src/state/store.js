@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
+import { getCookie } from '../utils/cookies';
 
 export const store = reactive({
-  colorFormat: 'hex',
+  colorFormat: getCookie('colorFormat') ?? 'hex',
 });

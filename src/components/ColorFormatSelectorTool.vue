@@ -1,7 +1,12 @@
 <script setup>
-import { inject } from 'vue';
+import { inject, watch } from 'vue';
+import { setCookie } from '../utils/cookies';
 
 const store = inject('store')
+watch(
+  () => store.colorFormat,
+  (newFormat) => setCookie('colorFormat', newFormat)
+)
 </script>
 
 <template>

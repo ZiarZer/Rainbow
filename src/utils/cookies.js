@@ -4,7 +4,7 @@ export function setCookie(cookieName, cookieValue) {
 
 export function getCookie(cookieName) {
   const cookie = document.cookie
-    .split(';')
+    .split('; ')
     .map((cookie) => cookie.split('='))
     .find(([savedCookieName]) => cookieName === savedCookieName);
   return cookie ? decodeURIComponent(cookie[1]) : null;
