@@ -44,7 +44,8 @@ inject('store', store)
 }
 
 input {
-  width: 4.5em;
+  width: 8em;
+  text-align: center;
 }
 
 input:disabled {
