@@ -6,6 +6,7 @@ import ColorTile from './components/ColorTile.vue'
 import AppTitle from './components/AppTitle.vue'
 import { computed, provide, ref } from 'vue';
 import { store } from './state/store';
+import { getCookie, setCookie } from './utils/cookies';
 
 function addColumn() {
   colors.value.forEach(element => {
@@ -24,20 +25,15 @@ function addRow() {
 }
 
 function storeColorsInCookie() {
-  document.cookie = `colorGrid=${encodeURIComponent(
-    JSON.stringify(colors.value)
-  )}`
+  setCookie('colorGrid', JSON.stringify(colors.value))
 }
 
 function loadColorsFromCookies() {
-  const storedColors = document.cookie
-    .split(';')
-    .map((cookie) => cookie.split('='))
-    .find(([cookieName]) => cookieName === 'colorGrid')
+  const storedColors = getCookie('colorGrid')
   if (storedColors == null) {
     return []
   }
-  return JSON.parse(decodeURIComponent(storedColors[1]))
+  return JSON.parse(storedColors)
 }
 
 let timeoutId = null;
