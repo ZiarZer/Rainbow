@@ -16,6 +16,9 @@ const onColorInputChange = ($event) => {
   emit('color-update')
   inputTextValue.value = convertHexToFormat($event.target.value, store.colorFormat)
 }
+watch(inputColorValueHex,
+  (newColor) => inputTextValue.value = newColor,
+  { immediate: true })
 const onTextInputChange = ($event) => {
   emit('color-update')
   inputColorValueHex.value = convertToHex($event.target.value, store.colorFormat)

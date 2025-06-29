@@ -28,6 +28,7 @@ h1 {
   font-size: 5em;
   cursor: pointer;
   text-shadow: 0 0 5px;
+  user-select: none;
 }
 
 #app-title-wrapper {
